@@ -1,0 +1,16 @@
+{
+    "name": "dabea/martinez_dela-torre_david_dwes04_tarea",
+    "type": "project",
+    "authors": [
+        {
+            "name": "David Martinez",
+            "email": "da.b@hotmail.es"
+        }
+    ],
+    "require": {
+        "smarty/smarty": "^4.3"
+    },
+    "autoload": {
+        "psr-4": {"DWES04\\": "src/"}
+    }
+}
