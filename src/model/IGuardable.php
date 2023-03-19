@@ -1,20 +1,15 @@
 <?php
-require_once('/src/conn.php');
+namespace interfaces;
 
-class IGuardable {
-    public $id;
+require_once('src/conn.php');
 
-    public function guardar($pdo) {
+$pdo = connect();
 
-    }
+ interface IGuardable {
 
-    public static function rescatar($pdo, $id) {
-
-    }
-    public static function borrar($pdo, $id) {
-
-    }
+    public function guardar($pdo);
+    public static function rescatar($pdo, $id);
+    public static function borrar($pdo, $id);
 }
-
 
 ?>

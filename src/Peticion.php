@@ -1,6 +1,6 @@
 <?php
 
-namespace DWES04;
+namespace peticion;
 
 /**
  * Clase que facilita la gestión de parámetros recibidos vía GET y POST.

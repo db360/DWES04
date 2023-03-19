@@ -1,13 +1,14 @@
 <?php
-class IListable {
-    public $id;
+namespace interfaces;
 
-    public static function listar($pdo, $lim, $offset) {
+$pdo = connect();
+interface IListable {
+    public static function listar($pdo, $lim, $offset);
+    public static function contar($pdo);
 
-    }
-    public static function contar($pdo) {
-        
-    }
 }
+
+
+
 
 ?>
