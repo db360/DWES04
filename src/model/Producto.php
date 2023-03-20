@@ -1,8 +1,8 @@
 <?php
 namespace classes;
 
-require_once('src/model/IGuardable.php');
-require_once('src/model/IListable.php');
+require_once(__DIR__.'/IGuardable.php');
+require_once(__DIR__.'/IListable.php');
 
 use interfaces\IGuardable;
 use interfaces\IListable;
@@ -10,7 +10,11 @@ use interfaces\IListable;
 
 $pdo = connect();
 /* Clase Producto */
+/**
+ * [Description Producto]
+ */
 class Producto implements IListable, IGuardable {
+
     /* PARÁMETROS */
     private $cod;
     private $desc;
@@ -18,30 +22,57 @@ class Producto implements IListable, IGuardable {
     private $stock;
     private $id;
 
-    /* CONSTRUCTOR */
-    public function __construct($cod, $desc, $precio, $stock, $id = null, ) {
+    // /* CONSTRUCTOR */
+    // /**
+    //  * @param mixed $cod
+    //  * @param mixed $desc
+    //  * @param mixed $precio
+    //  * @param mixed $stock
+    //  * @param null $id
+    //  * @param mixed
+    //  */
+    public function __construct($cod, $desc, $precio, $stock, $id = null) {
         $this->cod = $cod;
         $this->desc = $desc;
         $this->precio = $precio;
         $this->stock = $stock;
         $this->id = $id;
     }
-
+    /**
+     * @return [int]
+     */
     public function getId() {
         return $this->id;
     }
+    /**
+     * @return [float]
+     */
     public function getPrecio() {
         return $this->precio;
     }
+    /**
+     * @return [string]
+     */
     public function getDesc() {
         return $this->desc;
     }
+    /**
+     * @return [string]
+     */
     public function getCod() {
         return $this->cod;
     }
+    /**
+     * @return [float]
+     */
     public function getStock () {
         return $this->stock;
     }
+    /**
+     * @param mixed $precio
+     *
+     * @return [float]
+     */
     public function setPrecio($precio) {
         if(is_numeric($precio) && $precio > 0) {
             $this->precio = $precio;
@@ -51,7 +82,11 @@ class Producto implements IListable, IGuardable {
         };
         return $retorno;
     }
-
+    /**
+     * @param mixed $stock
+     *
+     * @return [int]
+     */
     public function setStock($stock) {
         if(is_numeric($stock) && $stock > 0) {
         $this-> stock = $stock;
@@ -61,6 +96,11 @@ class Producto implements IListable, IGuardable {
         }
         return $retorno;
     }
+    /**
+     * @param mixed $cod
+     *
+     * @return [string]
+     */
     public function setCod($cod) {
         if (preg_match('/^[a-zA-Z0-9]+$/', $cod)) {
             $this->cod = $cod;
@@ -70,6 +110,11 @@ class Producto implements IListable, IGuardable {
         }
         return $retorno;
     }
+    /**
+     * @param mixed $desc
+     *
+     * @return [string]
+     */
     public function setDesc($desc) {
         if(strlen($desc) > 1) {
             $this->desc = $desc;
@@ -79,8 +124,11 @@ class Producto implements IListable, IGuardable {
         }
         return $retorno;
     }
-    /* Método guardar. Guarda, si el id existe en la base de datos o modifica el
-     contenido en la base de datos asociado a éste producto */
+    /**
+     * @param mixed $pdo
+     *
+     * @return [int/boolean]
+     */
     public function guardar($pdo) {
         try {
             $sql = "SELECT id FROM productos WHERE id = ?";
@@ -106,15 +154,19 @@ class Producto implements IListable, IGuardable {
             return false;
         }
     }
-    // Código para rescatar un objeto por su ID desde la base de datos
+    /**
+     * @param mixed $pdo
+     * @param mixed $id
+     *
+     * @return [array]
+     */
     public static function rescatar($pdo, $id) {
-        $stmt = null;
         try {
             $stmt = $pdo->prepare("SELECT * FROM productos WHERE id = ?");
             $stmt->execute([$id]);
             $producto = $stmt->fetch();
             if($producto) {
-                return new Producto( $producto['cod'], $producto['desc'], floatval($producto['precio']), intval($producto['stock']) , intval($producto['id']),);
+                return new Producto( $producto['cod'], $producto['desc'], floatval($producto['precio']), intval($producto['stock']) , intval($producto['id']));
             } else {
                 return null;
             }
@@ -122,12 +174,13 @@ class Producto implements IListable, IGuardable {
         } catch (\PDOException $e) {
             return false;
         }
-
-
     }
-
-
-    // Código para borrar un objeto por su ID desde la base de datos
+    /**
+     * @param mixed $pdo
+     * @param mixed $id
+     *
+     * @return [int/boolean]
+     */
     public static function borrar($pdo, $id) {
         try {
             $stmt = $pdo->prepare("DELETE FROM productos WHERE id=?");
@@ -138,12 +191,16 @@ class Producto implements IListable, IGuardable {
             return false;
         }
     }
-
-    // Código para listar objetos desde la base de datos con límite y offset
+    /**
+     * @param mixed $pdo
+     * @param mixed $lim
+     * @param mixed $offset
+     *
+     * @return [type]
+     */
     public static function listar($pdo, $lim, $offset) {
 
         try {
-
             $stmt = $pdo->prepare("SELECT id FROM productos LIMIT ? OFFSET ?");
             $stmt->bindValue(1, $lim, \PDO::PARAM_INT);
             $stmt->bindValue(2, $offset, \PDO::PARAM_INT);
@@ -159,10 +216,14 @@ class Producto implements IListable, IGuardable {
             // echo $e;
             return false;
         }
-
     }
 
     // Código para contar la cantidad total de objetos en la base de datos
+    /**
+     * @param mixed $pdo
+     *
+     * @return [type]
+     */
     public static function contar($pdo) {
         try {
             $stmt = $pdo->query("SELECT count(id) from productos");
@@ -171,14 +232,7 @@ class Producto implements IListable, IGuardable {
             return $e;
         }
     }
-
 }
-
-
-
-
-
-
 ?>
 
 
