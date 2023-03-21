@@ -26,9 +26,7 @@ use peticion\Peticion;
 $peticion = new Peticion();
 $smarty = new \Smarty();
 
-$path = $peticion->getPath();
-$pathNoRoot = substr($path, strlen("/DWES04"));
-$smarty->assign('rootpath', substr($path, strlen("/DWES04")));
+
 
 
 
@@ -39,11 +37,12 @@ $pathNoRoot = preg_replace('/^\/DWES04/', '', $path);
 
 
 
-echo ("<br>");
-echo ("<br>");
+// echo ("<br>");
+// echo($pathNoRoot);
+// echo ("<br>");
 
 /* ROUTING */
-switch ($pathNoRoot) {
+switch (PATH_NO_ROOT) {
     case '/':
     case ROOTPATH . '//':
         require_once 'src/controllers/Controladores.php';
@@ -68,11 +67,13 @@ switch ($pathNoRoot) {
 
     default:
         echo ("<br>");
-        echo ('RUTA ' . $path . ' NO EXISTENTE');
+        echo ('RUTA ' . PATH . ' NO EXISTENTE');
         break;
 }
 
+
+
 // echo ('<br>');
 // echo ('El valor del path es: ' . $path);
-echo ('<br>');
-echo ('El valor del pathNoRoot es: ' . $pathNoRoot);
+// echo ('<br>');
+// echo ('El valor del pathNoRoot es: ' . $pathNoRoot);

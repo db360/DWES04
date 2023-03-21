@@ -12,32 +12,33 @@ namespace peticion;
  * $a=$p->getInt('a'); //Obtener el parámetro 'a' como un entero.
  *
  */
-class Peticion {
+class Peticion
+{
 
-    const GET=1;
-    const POST=2;
-    const BOTH=3;
+    const GET = 1;
+    const POST = 2;
+    const BOTH = 3;
 
     private $params;
     private $URI;
     private $method;
 
-    public function __construct($opt=Peticion::BOTH) {
-        switch ($opt)
-        {
+    public function __construct($opt = Peticion::BOTH)
+    {
+        switch ($opt) {
             case Peticion::GET:
                 $this->params = $_GET;
-            break;
+                break;
             case Peticion::POST:
                 $this->params = $_POST;
-            break;
+                break;
             case Peticion::BOTH:
             default:
                 $this->params = array_merge($_POST, $_GET);
-            break;
+                break;
         }
-        $this->URI=$_SERVER['REQUEST_URI'];
-        $this->method=$_SERVER['REQUEST_METHOD'];
+        $this->URI = $_SERVER['REQUEST_URI'];
+        $this->method = $_SERVER['REQUEST_METHOD'];
     }
 
     /**
@@ -54,10 +55,11 @@ class Peticion {
      */
     public function getPath(string $rootPath = '')
     {
-        $rootPath=trim($rootPath);
-        $rootPath=preg_replace('/\/+$/','',$rootPath);
-        $internalPath=preg_replace('/^'.preg_quote($rootPath,'/').'/i','',$this->URI);
-        if (($argseppos=strpos($internalPath,'?'))!==false) $internalPath=substr($internalPath,0,$argseppos);
+        $rootPath = trim($rootPath);
+        $rootPath = preg_replace('/\/+$/', '', $rootPath);
+        $internalPath = preg_replace('/^' . preg_quote($rootPath, '/') . '/i', '', $this->URI);
+        if (($argseppos = strpos($internalPath, '?')) !== false)
+            $internalPath = substr($internalPath, 0, $argseppos);
         return $internalPath;
     }
 
@@ -76,7 +78,7 @@ class Peticion {
      */
     public function isGet()
     {
-        return $this->method==='GET';
+        return $this->method === 'GET';
     }
 
     /**
@@ -85,7 +87,7 @@ class Peticion {
      */
     public function isPost()
     {
-        return $this->method==='POST';
+        return $this->method === 'POST';
     }
 
     /**
@@ -101,10 +103,9 @@ class Peticion {
      */
     public function has()
     {
-        $res=true;
-        for($i=0;$i<func_num_args() && $res;$i++)
-        {
-           $res&=isset($this->params[func_get_arg($i)]);
+        $res = true;
+        for ($i = 0; $i < func_num_args() && $res; $i++) {
+            $res &= isset($this->params[func_get_arg($i)]);
         }
         return $res;
     }
@@ -122,22 +123,22 @@ class Peticion {
      * @throws Exception Se lanza excepción si no existe el parámetro o si
      * el parámetro no es un entero.
      */
-    public function getInt($paramName) {
+    public function getInt($paramName)
+    {
 
-        if (!$this->has($paramName))
-        {
+        if (!$this->has($paramName)) {
             throw new \Exception("No existe $paramName.");
         }
 
-        $value=trim($this->get($paramName));
+        $value = trim($this->get($paramName));
 
-        if (!preg_match('/^[0-9]+$/', $value))
-        {
+        if (!preg_match('/^[0-9]+$/', $value)) {
             throw new \Exception("$paramName no es un número entero.");
         }
 
         return (int) $value;
     }
+
 
     /**
      * Obtiene el parámetro del nombre $paramName y lo procesa para obtener
@@ -145,18 +146,17 @@ class Peticion {
      * @param string $paramName Tipo del parámetro
      * @param string $locale Nombre del locale del número decimal.
      * @return type double
-     * @throws Exception Se lanza excepción si no existe el parámetro o si
+     * @throws \Exception Se lanza excepción si no existe el parámetro o si
      * el parámetro no es un número.
      */
-    public function getDouble($paramName, $locale='es_ES'){
+    public function getDouble($paramName, $locale = 'es_ES')
+    {
         setlocale(LC_NUMERIC, $locale);
-        if (!$this->has($paramName))
-        {
+        if (!$this->has($paramName)) {
             throw new \Exception("No existe $paramName.");
         }
-        $value=trim($this->get($paramName));
-        if (!is_numeric($value))
-        {
+        $value = trim($this->get($paramName));
+        if (!is_numeric($value)) {
             throw new \Exception("$paramName no es un número con decimales.");
         }
         return floatval($value);
@@ -171,16 +171,16 @@ class Peticion {
      * @return type string
      * @throws Exception Se lanza excepción si no existe el parámetro.
      */
-    public function getUnsafeString($name, $trim=true) {
+    public function getUnsafeString($name, $trim = true)
+    {
 
-        if (!$this->has($name))
-        {
+        if (!$this->has($name)) {
             throw new \Exception("No existe $name.");
         }
         $value = (string) $this->get($name);
 
-        if($trim) {
-            $value=trim($value);
+        if ($trim) {
+            $value = trim($value);
         }
 
         return $value;
@@ -194,9 +194,9 @@ class Peticion {
      * @return string cadena contenida el el parámetro.
      * @throws ParamException si el parámetro no existe.
      */
-    public function getString($name, $trim=true)
+    public function getString($name, $trim = true)
     {
-        return addslashes((string)$this->getUnsafeString($name,$trim));
+        return addslashes((string) $this->getUnsafeString($name, $trim));
     }
 
     /**
@@ -208,18 +208,16 @@ class Peticion {
      * @throws Exception Lanza una excepción si no existe el parámetro o
      * si no es un array.
      */
-    public function getArrayOfUnsafeStrings($name,$trim=true)
+    public function getArrayOfUnsafeStrings($name, $trim = true)
     {
-        if (!$this->has($name))
-        {
+        if (!$this->has($name)) {
             throw new \Exception("No existe $name.");
-        }
-        elseif (!is_array($this->get($name)))
-        {
+        } elseif (!is_array($this->get($name))) {
             throw new \Exception("No es un array $name.");
         }
-        $ret=$this->get($name);
-        $trim && array_walk ($ret,function (&$val) {$val=trim($val);});
+        $ret = $this->get($name);
+        $trim && array_walk($ret, function (&$val) {
+            $val = trim($val); });
         return $ret;
     }
     /**
@@ -233,11 +231,14 @@ class Peticion {
      * @throws Exception LAnza una excepción si no existe el parámetro o
      * si no es un array.
      */
-    public function getArrayOfStrings($name,$trim=true)
+    public function getArrayOfStrings($name, $trim = true)
     {
-        $r=(array)$this->getArrayOfUnsafeStrings($name,$trim);
-        array_walk ($r,
-                function (&$val) {$val= addslashes($val);});
+        $r = (array) $this->getArrayOfUnsafeStrings($name, $trim);
+        array_walk(
+            $r,
+            function (&$val) {
+                $val = addslashes($val); }
+        );
         return $r;
     }
 }
