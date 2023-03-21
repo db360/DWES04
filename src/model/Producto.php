@@ -150,7 +150,6 @@ class Producto implements IListable, IGuardable {
             return $stmt->rowCount();
 
         } catch (\PDOException $e) {
-            echo $e;
             return false;
         }
     }

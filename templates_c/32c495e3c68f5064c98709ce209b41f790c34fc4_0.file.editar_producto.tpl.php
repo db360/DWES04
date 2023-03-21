@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-03-21 14:51:14
-  from 'C:\xampp\htdocs\DWES04\templates\nuevo_producto.tpl' */
+/* Smarty version 4.3.0, created on 2023-03-21 19:17:04
+  from 'C:\xampp\htdocs\DWES04\templates\editar_producto.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_6419b6525ab142_78492183',
+  'unifunc' => 'content_6419f4a042df04_28012933',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '2490af7565bf682ba28a8c05dcf52aaab81461b0' => 
+    '32c495e3c68f5064c98709ce209b41f790c34fc4' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\DWES04\\templates\\nuevo_producto.tpl',
-      1 => 1679406661,
+      0 => 'C:\\xampp\\htdocs\\DWES04\\templates\\editar_producto.tpl',
+      1 => 1679422619,
       2 => 'file',
     ),
   ),
@@ -20,14 +20,14 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6419b6525ab142_78492183 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6419f4a042df04_28012933 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Añadir Nuevo Producto</title>
+    <title>Editar Producto</title>
     <link rel="stylesheet" href="src/styles/lista_productos.css">
     <link rel="stylesheet" href="src/styles/nuevo_producto.css">
 </head>
@@ -72,30 +72,33 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         <?php }?>
 
 
-        <form action="<?php echo $_smarty_tpl->tpl_vars['path']->value;?>
-" method="POST" <?php if ($_smarty_tpl->tpl_vars['errorguardar']->value != '' || $_smarty_tpl->tpl_vars['success']->value != '') {?>class="hidden"<?php }?>>
-        <h2 class="formsTitle">Añadir Nuevo Producto:</h2>
+        <form action="#" method="POST" <?php if ($_smarty_tpl->tpl_vars['errorguardar']->value != '' || $_smarty_tpl->tpl_vars['success']->value != '') {?>class="hidden"<?php }?>>
+        <h2 class="formsTitle">Editar Producto:</h2>
             <div class="campo campoNombre">
                 <label for="cod">Código:</label>
-                <input class="cod" type="text" id="cod" placeholder="Codigo..." name="cod">
+                <input class="cod" type="text" id="cod" placeholder="Codigo..." name="cod" value="<?php echo $_smarty_tpl->tpl_vars['cod']->value;?>
+">
             </div>
 
             <div class="campo">
                 <label for="desc">Descripción:</label>
-                <input placeholder="Descripción..." type="text" id="desc" id="desc" name="desc">
+                <input placeholder="Descripción..." type="text" id="desc" id="desc" name="desc" value="<?php echo $_smarty_tpl->tpl_vars['desc']->value;?>
+">
             </div>
 
             <div class="campo">
                 <label for="precio">Precio:</label>
-                <input placeholder="Precio..." type="number" id="precio" name="precio" step="0.01">
+                <input placeholder="Precio..." type="number" id="precio" name="precio" step="0.01" value="<?php echo $_smarty_tpl->tpl_vars['precio']->value;?>
+">
             </div>
 
             <div class="campo">
                 <label for="stock">Stock:</label>
-                <input placeholder="Stock..." type="number" id="stock" name="stock">
+                <input placeholder="Stock..." type="number" id="stock" name="stock" value="<?php echo $_smarty_tpl->tpl_vars['stock']->value;?>
+">
             </div>
 
-            <button type="submit" value="submit" class="btn btn-nuevo w20" name="submit">Enviar</button>
+            <button type="submit" value="submit" class="btn btn-nuevo w20" name="submit">Guardar</button>
             <div>
             </div>
         </form>

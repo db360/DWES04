@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Añadir Nuevo Producto</title>
+    <title>Editar Producto</title>
     <link rel="stylesheet" href="src/styles/lista_productos.css">
     <link rel="stylesheet" href="src/styles/nuevo_producto.css">
 </head>
@@ -37,29 +37,29 @@
         {/if}
 
 
-        <form action="{$path}" method="POST" {if $errorguardar != '' ||  $success != ''}class="hidden"{/if}>
-        <h2 class="formsTitle">Añadir Nuevo Producto:</h2>
+        <form action="#" method="POST" {if $errorguardar != '' ||  $success != ''}class="hidden"{/if}>
+        <h2 class="formsTitle">Editar Producto:</h2>
             <div class="campo campoNombre">
                 <label for="cod">Código:</label>
-                <input class="cod" type="text" id="cod" placeholder="Codigo..." name="cod">
+                <input class="cod" type="text" id="cod" placeholder="Codigo..." name="cod" value="{$cod}">
             </div>
 
             <div class="campo">
                 <label for="desc">Descripción:</label>
-                <input placeholder="Descripción..." type="text" id="desc" id="desc" name="desc">
+                <input placeholder="Descripción..." type="text" id="desc" id="desc" name="desc" value="{$desc}">
             </div>
 
             <div class="campo">
                 <label for="precio">Precio:</label>
-                <input placeholder="Precio..." type="number" id="precio" name="precio" step="0.01">
+                <input placeholder="Precio..." type="number" id="precio" name="precio" step="0.01" value="{$precio}">
             </div>
 
             <div class="campo">
                 <label for="stock">Stock:</label>
-                <input placeholder="Stock..." type="number" id="stock" name="stock">
+                <input placeholder="Stock..." type="number" id="stock" name="stock" value="{$stock}">
             </div>
 
-            <button type="submit" value="submit" class="btn btn-nuevo w20" name="submit">Enviar</button>
+            <button type="submit" value="submit" class="btn btn-nuevo w20" name="submit">Guardar</button>
             <div>
             </div>
         </form>

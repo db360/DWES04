@@ -48,7 +48,6 @@ class Controladores
             $success = '';
             $errorGuardar = '';
 
-
             // Comprobar que las variables de POST existen
         if(isset($_POST['cod'], $_POST['desc'], $_POST['precio'], $_POST['stock'])) {
             $codigo = $_POST['cod'];
@@ -84,12 +83,11 @@ class Controladores
 
                     if($producto->guardar($pdo)) {
                         $idProducto = $producto->getId();
-                        $success = 'El producto con ID '. $idProducto . 'ha sido correctamente guardado';
+                        $success = 'El producto con ID '. $idProducto . ' ha sido correctamente guardado';
                     } else {
                         $errorGuardar = "El Código de producto existe, fallo al guardar el producto.";
                     };
             }
-
         }
 
         /* Asignamos las variables a la plantilla de smarty */
@@ -102,10 +100,88 @@ class Controladores
 
         }
     }
-    public static function editarProducto(Peticion $p, PDO $pdo, Smarty $smarty)
-    {
+    /**
+     * @param Peticion $p
+     * @param PDO $pdo
+     * @param Smarty $smarty
+     *
+     * @return [type]
+     */
+    public static function editarProducto(Peticion $peticion, PDO $pdo, Smarty $smarty){
 
+       if ($peticion->getMethod() == 'POST'){
+
+            $errores = array();
+            $success = '';
+            $errorGuardar = '';
+
+            $idProducto = $_GET['id'];
+            $prodEditable = Producto::rescatar($pdo, $idProducto);
+            $cod = $prodEditable->getCod();
+            $desc = $prodEditable->getDesc();
+            $precio = $prodEditable->getPrecio();
+            $stock = $prodEditable->getStock();
+
+            // var_dump($_POST);
+
+            if(isset($_POST['submit'])) {
+                $cod = trim($_POST['cod']);
+                $desc = trim($_POST['desc']);
+                $precio = $_POST['precio'];
+                $stock = $_POST['stock'];
+
+                if(empty($cod)) {
+                    $errores[] = 'El código es requerido';
+                }
+                if(empty($desc)) {
+                    $errores[] = 'La descripción es requerida';
+                }
+                if(empty($precio) || $precio <= 0) {
+                    $errores[] = 'El precio debe ser mayor a 0';
+                }
+                if(empty($stock) || $stock <= 0) {
+                    $errores[] = 'El stock debe ser mayor a 0';
+                }
+
+                // Si no hay errores, actualizar registro
+                if(empty($errores)) {
+                    try {
+                        $prodEditable->setCod($cod);
+                        $prodEditable->setDesc($desc);
+                        $prodEditable->setPrecio($precio);
+                        $prodEditable->setStock($stock);
+                        $prodEditable->guardar($pdo);
+
+                        $success = 'Producto actualizado correctamente';
+                    } catch (Exception $e) {
+                        $errorGuardar = 'Error al actualizar el producto';
+                    }
+                }
+            }
+
+
+
+            $smarty->assign('success', $success);
+            $smarty->assign('errores', $errores);
+            $smarty->assign('errorguardar', $errorGuardar);
+            $smarty->assign('path', PATH);
+            $smarty->assign('rooturl', ROOT_URL);
+
+            $smarty->assign('cod', $cod);
+            $smarty->assign('desc', $desc);
+            $smarty->assign('precio', $precio);
+            $smarty->assign('stock', $stock);
+            $smarty->display('templates/editar_producto.tpl');
+
+       }
     }
+    /**
+     * @param Peticion $p
+     * @param PDO $pdo
+     * @param Smarty $smarty
+     *
+     * @return [type]
+     */
     public static function borrarProducto(Peticion $p, PDO $pdo, Smarty $smarty)
     {
 
