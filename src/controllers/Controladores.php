@@ -15,11 +15,14 @@ $smarty = new Smarty();
 class Controladores
 {
     /**
+     * Controlador por defecto cuando se carga la ruta / o '' y el metodo HTTP es POST o GET;
+     *
      * @param Peticion $peticion
      * @param PDO $pdo
      * @param Smarty $smarty
      *
      * @return [string]
+     * @
      */
     public static function controladorDefecto(Peticion $peticion, PDO $pdo, Smarty $smarty)
     {
@@ -29,11 +32,13 @@ class Controladores
             // var_dump($productos);
             $smarty->assign('lista_productos', $productos);
             $smarty->assign('rootpath', PATH);
-            $smarty->display('templates/lista_productos.tpl');
+            $smarty->display(TEMPLATE_DIR.'/lista_productos.tpl');
         }
     }
 
     /**
+     * Controlador para el nuevo producto, se carga si el método es HTTP o POST, validamos el formulario al enviar, y si todo es correcto y no hay errores,, guardaremos el producto en la base de datos llamando al metodo guardar
+     *
      * @param Peticion $peticion
      * @param PDO $pdo
      * @param Smarty $smarty
@@ -96,11 +101,13 @@ class Controladores
             $smarty->assign('errorguardar', $errorGuardar);
             $smarty->assign('path', PATH);
             $smarty->assign('rooturl', ROOT_URL);
-            $smarty->display('templates/nuevo_producto.tpl');
+            $smarty->display(TEMPLATE_DIR.'/nuevo_producto.tpl');
 
         }
     }
     /**
+     * Controlador para editar el producto, si la ruta es /editarproducto y el metodo POST, si la id que rescatamos con el método rescatar de la clase Producto, accedemos a los datos del formulario y lo validaremos y guardaremos usando el método rescatar
+     *
      * @param Peticion $p
      * @param PDO $pdo
      * @param Smarty $smarty
@@ -121,8 +128,6 @@ class Controladores
             $desc = $prodEditable->getDesc();
             $precio = $prodEditable->getPrecio();
             $stock = $prodEditable->getStock();
-
-            // var_dump($_POST);
 
             if(isset($_POST['submit'])) {
                 $cod = trim($_POST['cod']);
@@ -170,11 +175,12 @@ class Controladores
             $smarty->assign('desc', $desc);
             $smarty->assign('precio', $precio);
             $smarty->assign('stock', $stock);
-            $smarty->display('templates/editar_producto.tpl');
+            $smarty->display(TEMPLATE_DIR.'/editar_producto.tpl');
 
        }
     }
     /**
+     * Controllador que actua en la ruta /borrarProducto y si el método es POST, rescatará el producto según la id que recibimos en GET, recuperamos sus valores con los métodos get de la clase producto, y si se confirma con el checkbox, borrará de la base de datos.
      * @param Peticion $p
      * @param PDO $pdo
      * @param Smarty $smarty
@@ -194,12 +200,11 @@ class Controladores
             $precio = $prodEditable->getPrecio();
             $stock = $prodEditable->getStock();
 
-            var_dump($_POST);
-
             if(isset($_POST['borrar'])) {
                 if(!isset($_POST['confirmar']) ) {
                     $errores = "Debe confirmar el borrado del producto";
                 } else {
+
                  // Si no hay errores, actualizar registro
                 if(empty($errores)) {
                     try {
@@ -223,7 +228,7 @@ class Controladores
        $smarty->assign('desc', $desc);
        $smarty->assign('precio', $precio);
        $smarty->assign('stock', $stock);
-       $smarty->display('templates/borrar_producto.tpl');
+       $smarty->display(TEMPLATE_DIR.'/borrar_producto.tpl');
 
     }
 }

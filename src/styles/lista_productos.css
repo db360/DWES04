@@ -160,8 +160,11 @@ form {
   margin: 10 15px;
 }
 table a {
+  padding: 0.1rem 0.5rem !important;
+  height: 30px;
+  margin: 0 auto;
   display: flex;
-  width: 100% !important;
+  width: 60% !important;
 }
 
 form .btn-form {

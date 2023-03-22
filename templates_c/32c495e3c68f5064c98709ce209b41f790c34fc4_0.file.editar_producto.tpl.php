@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-03-21 19:17:04
+/* Smarty version 4.3.0, created on 2023-03-22 12:25:14
   from 'C:\xampp\htdocs\DWES04\templates\editar_producto.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_6419f4a042df04_28012933',
+  'unifunc' => 'content_641ae59a070690_34419348',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '32c495e3c68f5064c98709ce209b41f790c34fc4' => 
     array (
       0 => 'C:\\xampp\\htdocs\\DWES04\\templates\\editar_producto.tpl',
-      1 => 1679422619,
+      1 => 1679480157,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6419f4a042df04_28012933 (Smarty_Internal_Template $_smarty_tpl) {
+function content_641ae59a070690_34419348 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,13 +88,13 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
             <div class="campo">
                 <label for="precio">Precio:</label>
-                <input placeholder="Precio..." type="number" id="precio" name="precio" step="0.01" value="<?php echo $_smarty_tpl->tpl_vars['precio']->value;?>
+                <input placeholder="Precio..." type="text" id="precio" name="precio"value="<?php echo $_smarty_tpl->tpl_vars['precio']->value;?>
 ">
             </div>
 
             <div class="campo">
                 <label for="stock">Stock:</label>
-                <input placeholder="Stock..." type="number" id="stock" name="stock" value="<?php echo $_smarty_tpl->tpl_vars['stock']->value;?>
+                <input placeholder="Stock..." type="text" id="stock" name="stock" value="<?php echo $_smarty_tpl->tpl_vars['stock']->value;?>
 ">
             </div>
 

@@ -2,6 +2,7 @@
 require_once(__DIR__.'/../conf.php');
 /**
  * @return [object/null]
+ * 
  */
 function connect()
 {
@@ -18,6 +19,7 @@ function connect()
     } catch (PDOException $e) {
 
         /* He capturado aquí el error que pueda surgir de la conexión a la basse de datos, si hay un error, se mostrará la plantilla de error, a la que mando el error que nos llega del try/catch y lo mostramos en la pantalla de error. */
+
         $smarty->assign('error', $e);
         $smarty->display('templates/error.tpl');
         die();

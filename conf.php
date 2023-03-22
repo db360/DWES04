@@ -1,4 +1,5 @@
 <?php
+/* CONSTANTES */
 
 require_once(__DIR__.'/src/Peticion.php');
 use peticion\Peticion;
@@ -16,17 +17,11 @@ define('PATH', $peticion->getPath());
 $pathNoRoot = substr(PATH, strlen("/DWES04"));
 define('PATH_NO_ROOT', $pathNoRoot);
 
+/* También podríamos eliminar /DWES04 del path con la siguientes formas:
+$pathNoRoot = str_replace('/DWES04', '', $path);
+$pathNoRoot = preg_replace('/^\/DWES04/', '', $path);
+*/
 /* DB CONSTANSTS */
 define ('DB_DSN','mysql:host=localhost;dbname=pedidos');
 define ('DB_USER','root');
 define ('DB_PASSWD','');
-
-// echo ("<br>");
-// echo("ROOTPATH " .ROOTPATH);
-// echo ("<br>");
-// echo("TEMPLATE_DIR " .TEMPLATE_DIR);
-// echo ("<br>");
-// echo("TEMPLATE_C_DIR " .TEMPLATE_C_DIR);
-// echo ("<br>");
-// echo(CACHE);
-// echo ("<br>");
