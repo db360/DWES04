@@ -51,15 +51,15 @@
 
             <div class="campo">
                 <label for="precio">Precio:</label>
-                <input placeholder="Precio..." type="number" id="precio" name="precio" step="0.01">
+                <input placeholder="Precio..." type="text" id="precio" name="precio">
             </div>
 
             <div class="campo">
                 <label for="stock">Stock:</label>
-                <input placeholder="Stock..." type="number" id="stock" name="stock">
+                <input placeholder="Stock..." type="text" id="stock" name="stock">
             </div>
 
-            <button type="submit" value="submit" class="btn btn-nuevo w20" name="submit">Enviar</button>
+            <button type="submit" value="submit" class="btn btn-nuevo w20" name="submit">Enviar</button>    
             <div>
             </div>
         </form>

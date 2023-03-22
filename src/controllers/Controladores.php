@@ -9,7 +9,6 @@ use classes\Producto;
 use peticion\Peticion;
 
 
-$pdo = connect();
 $smarty = new Smarty();
 
 
@@ -24,6 +23,7 @@ class Controladores
      */
     public static function controladorDefecto(Peticion $peticion, PDO $pdo, Smarty $smarty)
     {
+
         if ($peticion->getMethod() == 'GET' || $peticion->getMethod() == 'POST') {
             $productos = Producto::listar($pdo, 30, 0);
             // var_dump($productos);
@@ -160,7 +160,6 @@ class Controladores
             }
 
 
-
             $smarty->assign('success', $success);
             $smarty->assign('errores', $errores);
             $smarty->assign('errorguardar', $errorGuardar);
@@ -182,8 +181,49 @@ class Controladores
      *
      * @return [type]
      */
-    public static function borrarProducto(Peticion $p, PDO $pdo, Smarty $smarty)
-    {
+    public static function borrarProducto(Peticion $peticion, PDO $pdo, Smarty $smarty){
+       if ($peticion->getMethod() == 'POST'){
+            $errores = array();
+            $success = '';
+            $errorGuardar = '';
+
+            $idProducto = $_GET['id'];
+            $prodEditable = Producto::rescatar($pdo, $idProducto);
+            $cod = $prodEditable->getCod();
+            $desc = $prodEditable->getDesc();
+            $precio = $prodEditable->getPrecio();
+            $stock = $prodEditable->getStock();
+
+            var_dump($_POST);
+
+            if(isset($_POST['borrar'])) {
+                if(!isset($_POST['confirmar']) ) {
+                    $errores = "Debe confirmar el borrado del producto";
+                } else {
+                 // Si no hay errores, actualizar registro
+                if(empty($errores)) {
+                    try {
+                        $prodEditable->borrar($pdo, $idProducto);
+                        $success = 'Producto borrado correctamente';
+                    } catch (Exception $e) {
+                        $errorGuardar = 'Error al borrar el producto';
+                    }
+                }
+                }
+            }
+       }
+
+       $smarty->assign('success', $success);
+       $smarty->assign('errores', $errores);
+       $smarty->assign('errorguardar', $errorGuardar);
+       $smarty->assign('path', PATH);
+       $smarty->assign('rooturl', ROOT_URL);
+
+       $smarty->assign('cod', $cod);
+       $smarty->assign('desc', $desc);
+       $smarty->assign('precio', $precio);
+       $smarty->assign('stock', $stock);
+       $smarty->display('templates/borrar_producto.tpl');
 
     }
 }

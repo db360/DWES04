@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-03-21 14:51:14
+/* Smarty version 4.3.0, created on 2023-03-22 11:16:28
   from 'C:\xampp\htdocs\DWES04\templates\nuevo_producto.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_6419b6525ab142_78492183',
+  'unifunc' => 'content_641ad57ca232f6_79975779',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2490af7565bf682ba28a8c05dcf52aaab81461b0' => 
     array (
       0 => 'C:\\xampp\\htdocs\\DWES04\\templates\\nuevo_producto.tpl',
-      1 => 1679406661,
+      1 => 1679480186,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6419b6525ab142_78492183 (Smarty_Internal_Template $_smarty_tpl) {
+function content_641ad57ca232f6_79975779 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,12 +87,12 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
             <div class="campo">
                 <label for="precio">Precio:</label>
-                <input placeholder="Precio..." type="number" id="precio" name="precio" step="0.01">
+                <input placeholder="Precio..." type="text" id="precio" name="precio">
             </div>
 
             <div class="campo">
                 <label for="stock">Stock:</label>
-                <input placeholder="Stock..." type="number" id="stock" name="stock">
+                <input placeholder="Stock..." type="text" id="stock" name="stock">
             </div>
 
             <button type="submit" value="submit" class="btn btn-nuevo w20" name="submit">Enviar</button>

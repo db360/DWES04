@@ -76,7 +76,7 @@ tbody td:hover::before {
   width: 10%;
 }
 .operaciones {
-  padding: 5px 10px;
+  padding: 0 0;
 }
 
 /* BOTONES */
@@ -145,8 +145,10 @@ form .btn-nuevo:hover {
   background: rgb(83, 46, 125);
 }
 
+
 .btn-editar, .btn-borrar {
   width: 100% !important;
+  margin: 0 auto !important;
 }
 
 .btn-editar {
@@ -155,6 +157,7 @@ form .btn-nuevo:hover {
 
 form {
   align-items: center;
+  margin: 10 15px;
 }
 table a {
   display: flex;
@@ -165,5 +168,16 @@ form .btn-form {
   display: flex;
   width: 100%;
   place-content: center;
-  margin-bottom: 2rem;
 }
+
+.red {
+  color: red;
+  text-transform: uppercase;
+}
+
+.btn-operaciones{
+  width: 100% !important;
+  height: 100% !important;
+}
+
+

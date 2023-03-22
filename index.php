@@ -34,43 +34,45 @@ $smarty = new \Smarty();
 $pathNoRoot = str_replace('/DWES04', '', $path);
 $pathNoRoot = preg_replace('/^\/DWES04/', '', $path);
 */
-
-
-
 // echo ("<br>");
 // echo($pathNoRoot);
 // echo ("<br>");
 
-/* ROUTING */
-switch (PATH_NO_ROOT) {
-    case '/':
-    case ROOTPATH . '//':
-        require_once 'src/controllers/Controladores.php';
-        $controller = new Controladores();
-        $controller->controladorDefecto($peticion, $pdo, $smarty);
-        break;
-    case '/nuevoproducto':
-        require_once 'src/controllers/Controladores.php';
-        $controller = new Controladores();
-        $controller->nuevoProducto($peticion, $pdo, $smarty);
-        break;
-    case '/editarproducto':
-        require_once 'src/controllers/Controladores.php';
-        $controller = new Controladores();
-        $controller->editarProducto($peticion, $pdo, $smarty);
-        break;
-    case '/borrarproducto':
-        require_once 'src/controllers/Controladores.php';
-        $controller = new Controladores();
-        $controller->borrarProducto($peticion, $pdo, $smarty);
-        break;
+var_dump($pdo);
+if ($pdo === null) {
+    // Error, no se puede conectar a la base de datos
+} else {
+    /* ROUTING */
+    switch (PATH_NO_ROOT) {
+        case '/':
+        case ROOTPATH . '//':
+            require_once 'src/controllers/Controladores.php';
+            $controller = new Controladores();
+            $controller->controladorDefecto($peticion, $pdo, $smarty);
+            break;
+        case '/nuevoproducto':
+            require_once 'src/controllers/Controladores.php';
+            $controller = new Controladores();
+            $controller->nuevoProducto($peticion, $pdo, $smarty);
+            break;
+        case '/editarproducto':
+            require_once 'src/controllers/Controladores.php';
+            $controller = new Controladores();
+            $controller->editarProducto($peticion, $pdo, $smarty);
+            break;
+        case '/borrarproducto':
+            require_once 'src/controllers/Controladores.php';
+            $controller = new Controladores();
+            $controller->borrarProducto($peticion, $pdo, $smarty);
+            break;
 
-    default:
-        echo ("<br>");
-        echo ('RUTA ' . PATH . ' NO EXISTENTE');
-        break;
+        default:
+            echo ("<br>");
+            echo ('RUTA ' . PATH . ' NO EXISTENTE');
+            break;
+    }
+    // Continuar con la ejecución normal del programa
 }
-
 
 
 // echo ('<br>');
